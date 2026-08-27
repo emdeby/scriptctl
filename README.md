@@ -13,9 +13,11 @@ Commands:
   list        List all scripts in all script folders
   move        Move selected scripts into global executable directory
   exec        Execute scripts from anywhere (script must be in script directories)
+  remove      Remove scripts
 
 Specific usage:
   create:     scriptctl create [SCRIPT]
   move:       scriptctl move [SCRIPT]
   exec:       scriptctl exec [SCRIPT]
+  remove:     scriptctl remove [SCRIPT]
 ```

@@ -108,6 +108,35 @@ case "$command" in
         fi
     ;;
 
+    remove)
+        if [[ -n $2 ]]
+        then
+            scriptname="$2"
+
+            if [[ ! "$scriptname" == *.sh ]]
+            then
+                scriptname+=.sh
+            fi
+
+            if [[ -f "$defaultdir"/"$scriptname" ]]
+            then
+                read -p "Are you sure you want to remove '"$scriptname"' from '"~/scripts/"'? (Y/n) " confirmremove
+                
+                if [[ "$confirmremove" == "Y" ]]
+                then
+                    rm "$defaultdir"/"$scriptname"
+                    echo "'"$scriptname"' removed from '"~/scripts/"'!"
+                else
+                    echo "Aborted!"
+                fi
+            else
+                echo "${bold}ERROR${normal}: exec: Script '"$scriptname"' does not exist in '"$defaultdir"'"
+            fi
+        else
+            echo "${bold}ERROR${normal}: exec: Please provide a name of script that should be removed."
+        fi
+    ;;
+
     ""|-h|--help)
         echo "Usage: scriptctl [COMMAND] [OPTIONS]..."
         echo "Controller to manage scripts."
@@ -117,11 +146,13 @@ case "$command" in
         echo "  list            List all scripts in all script folders"
         echo "  move            Move selected scripts into global executable directory"
 	    echo "  exec            Execute scripts from anywhere (script must be in script directories)"
+        echo "  remove          Remove scripts"
         echo
         echo "Specific usage:"
         echo "  create:         scriptctl create [SCRIPT]"
         echo "  move:           scriptctl move [SCRIPT]"
 	    echo "  exec:           scriptctl exec [SCRIPT]"
+        echo "  remove:         scriptctl remove [SCRIPT]"
     ;;
 
     *)
